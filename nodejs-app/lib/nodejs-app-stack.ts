@@ -1,9 +1,10 @@
-import * as cdk from '@aws-cdk/core';
 import {join} from 'path';
+import * as apigw from '@aws-cdk/aws-apigateway';
 import * as appsync from '@aws-cdk/aws-appsync';
 import * as db from '@aws-cdk/aws-dynamodb';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as iam from '@aws-cdk/aws-iam';
+import * as cdk from '@aws-cdk/core';
 
 export class NodejsAppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -25,7 +26,7 @@ export class NodejsAppStack extends cdk.Stack {
     
     api.grant(role, appsync.IamResource.all(), 'appsync:GraphQL');
 
-    new lambda.Function(this, 'MyFunction', {
+    const func = new lambda.Function(this, 'MyFunction', {
       timeout: cdk.Duration.minutes(1),
       runtime: lambda.Runtime.NODEJS_12_X,
       code: lambda.Code.fromAsset('lambda'),
@@ -33,6 +34,10 @@ export class NodejsAppStack extends cdk.Stack {
       role: role,
       environment: {"APPSYNC_ENDPOINT": api.graphQlUrl },
     });
+
+    // new apigw.LambdaRestApi(this, 'Endpoint', {
+    //   handler: func,
+    // });
 
     const table = new db.Table(this, 'MyTable', {
       partitionKey: {
