@@ -1,14 +1,5 @@
-# Welcome to your CDK TypeScript project!
+# Node.js Client using AppSync
 
-This is a blank project for TypeScript development with CDK.
+AWS AppSync integrates with the `Apollo GraphQL client` for building client applications. AWS provides Apollo plugins for offline support, authorization, and subscription handshaking.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+Referenced by this [tutorial](https://docs.aws.amazon.com/appsync/latest/devguide/building-a-client-app-node.html).
