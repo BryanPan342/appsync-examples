@@ -35,9 +35,9 @@ export class NodejsAppStack extends cdk.Stack {
       environment: {"APPSYNC_ENDPOINT": api.graphQlUrl },
     });
 
-    // new apigw.LambdaRestApi(this, 'Endpoint', {
-    //   handler: func,
-    // });
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: func,
+    });
 
     const table = new db.Table(this, 'MyTable', {
       partitionKey: {

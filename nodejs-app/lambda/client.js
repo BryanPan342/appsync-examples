@@ -53,27 +53,19 @@ const config = {
 // Set up Apollo client
 const client = new AWSAppSyncClient(config);
 
-exports.handler = (event, context, callback) => {
-    client.hydrated().then(function (client) {
-        //Now run a query
-        client.query({ query: query })
-        client.query({ query: query, fetchPolicy: 'network-only' })   //Uncomment for AWS Lambda
+exports.handler = async function(event){
+    let api = client.hydrated().then(function (client) {
+        return client.query({ query: query, fetchPolicy: 'network-only' }) 
             .then(function logData(data) {
                 console.log('results of query: ', data);
+                return JSON.stringify(data);
             })
             .catch(console.error);
-
-        // //Now subscribe to results
-        // const observable = client.subscribe({ query: subquery });
-
-        // const realtimeResults = function realtimeResults(data) {
-        //     console.log('realtime data: ', data);
-        // };
-
-        // observable.subscribe({
-        //     next: realtimeResults,
-        //     complete: console.log,
-        //     error: console.log,
-        // });
     });
+
+    return {
+        statusCode: 200,
+        headers: {"Content-Type": "application/json"},
+        body: await api
+    };
 }
