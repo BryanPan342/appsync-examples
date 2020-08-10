@@ -1,3 +1,6 @@
 [submodule "nodejs-app"]
 	path = nodejs-app
 	url = https://github.com/BryanPan342/nodejs-app.git
+[submodule "starwars-schema-first"]
+	path = starwars-schema-first
+	url = https://github.com/bryanpan342/starwars-schema-first.it
