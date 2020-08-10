@@ -3,4 +3,7 @@
 	url = https://github.com/BryanPan342/nodejs-app.git
 [submodule "starwars-schema-first"]
 	path = starwars-schema-first
-	url = https://github.com/bryanpan342/starwars-schema-first.it
+	url = https://github.com/bryanpan342/starwars-schema-first.git
+[submodule "starwars-code-first"]
+	path = starwars-code-first
+	url = https://github.com/bryanpan342/starwars-code-first.git
