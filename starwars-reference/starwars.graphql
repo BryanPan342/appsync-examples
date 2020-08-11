@@ -2,6 +2,39 @@ schema {
   query: Root
 }
 
+type Root {
+  allFilms(after: String, first: Int, before: String, last: Int): FilmsConnection
+  film(id: ID, filmID: ID): Film
+  allPeople(after: String, first: Int, before: String, last: Int): PeopleConnection
+  person(id: ID, personID: ID): Person
+  allPlanets(after: String, first: Int, before: String, last: Int): PlanetsConnection
+  planet(id: ID, planetID: ID): Planet
+  allSpecies(after: String, first: Int, before: String, last: Int): SpeciesConnection
+  species(id: ID, speciesID: ID): Species
+  allStarships(after: String, first: Int, before: String, last: Int): StarshipsConnection
+  starship(id: ID, starshipID: ID): Starship
+  allVehicles(after: String, first: Int, before: String, last: Int): VehiclesConnection
+  vehicle(id: ID, vehicleID: ID): Vehicle
+  
+  node(id: ID!): Node
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  
+  hasNextPage: Boolean!
+  
+  hasPreviousPage: Boolean!
+  
+  startCursor: String
+  
+  endCursor: String
+}
+
+# FILMS
 type Film implements Node {
   
   title: String
@@ -15,6 +48,7 @@ type Film implements Node {
   producers: [String]
   
   releaseDate: String
+  
   speciesConnection(after: String, first: Int, before: String, last: Int): FilmSpeciesConnection
   starshipConnection(after: String, first: Int, before: String, last: Int): FilmStarshipsConnection
   vehicleConnection(after: String, first: Int, before: String, last: Int): FilmVehiclesConnection
@@ -136,40 +170,7 @@ type FilmVehiclesEdge {
   cursor: String!
 }
 
-interface Node {
-  
-  id: ID!
-}
-
-type PageInfo {
-  
-  hasNextPage: Boolean!
-  
-  hasPreviousPage: Boolean!
-  
-  startCursor: String
-  
-  endCursor: String
-}
-
-type PeopleConnection {
-  
-  pageInfo: PageInfo!
-  
-  edges: [PeopleEdge]
-
-  totalCount: Int
-
-  people: [Person]
-}
-
-type PeopleEdge {
-  
-  node: Person
-  
-  cursor: String!
-}
-
+# PERSON
 type Person implements Node {
   
   name: String
@@ -196,6 +197,24 @@ type Person implements Node {
   edited: String
   
   id: ID!
+}
+
+type PeopleConnection {
+  
+  pageInfo: PageInfo!
+  
+  edges: [PeopleEdge]
+
+  totalCount: Int
+
+  people: [Person]
+}
+
+type PeopleEdge {
+  
+  node: Person
+  
+  cursor: String!
 }
 
 type PersonFilmsConnection {
@@ -252,6 +271,7 @@ type PersonVehiclesEdge {
   cursor: String!
 }
 
+# PLANET
 type Planet implements Node {
   
   name: String
@@ -334,26 +354,8 @@ type PlanetsEdge {
   
   cursor: String!
 }
-type Root {
-  allFilms(after: String, first: Int, before: String, last: Int): FilmsConnection
-  film(id: ID, filmID: ID): Film
-  allPeople(after: String, first: Int, before: String, last: Int): PeopleConnection
-  person(id: ID, personID: ID): Person
-  allPlanets(after: String, first: Int, before: String, last: Int): PlanetsConnection
-  planet(id: ID, planetID: ID): Planet
-  allSpecies(after: String, first: Int, before: String, last: Int): SpeciesConnection
-  species(id: ID, speciesID: ID): Species
-  allStarships(after: String, first: Int, before: String, last: Int): StarshipsConnection
-  starship(id: ID, starshipID: ID): Starship
-  allVehicles(after: String, first: Int, before: String, last: Int): VehiclesConnection
-  vehicle(id: ID, vehicleID: ID): Vehicle
-  
-  node(
-    
-    id: ID!
-  ): Node
-}
 
+# SPECIES
 type Species implements Node {
   
   name: String
@@ -439,6 +441,7 @@ type SpeciesPeopleEdge {
   cursor: String!
 }
 
+# Starship
 type Starship implements Node {
   
   name: String
@@ -527,6 +530,7 @@ type StarshipsEdge {
   cursor: String!
 }
 
+# VEHICLE
 type Vehicle implements Node {
   name: String
 
